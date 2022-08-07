@@ -10,6 +10,10 @@ Rails.application.routes.draw do
     resources :book_comments, only: [:create,:destroy, :edit, :update]
   end
   
-  resources :users, only: [:index,:show,:edit,:update]
+  resources :users, only: [:index,:show,:edit,:update] do
+    resources :relationships, only: [:create, :destroy]
+    get "followings", to: "relationships#followings", as: "followings"
+    get "followers", to: "relationships#followers", as: "followers"
+  end
 
 end
