@@ -25,6 +25,22 @@
     </th>
   </tr>
 </table>
+<% if current_user.id != user.id %>  
+  <%# if user follow this user, then they can send messages each other %>
+  <% if current_user.following?(user) %>
+    <%# unfollow button %>
+    <div class='row pb-2 d-flex align-items-center'>
+      <%= link_to 'unfollow', user_relationships_path(user), method: :delete, class: 'btn btn-primary mr-3' %>
+      <%= link_to 'Send Message', conversation_path(current_user,user), method: :post %>
+    </div>
+  <% else %>
+    <%# follow button %>
+    <div class='row pb-2 d-flex align-items-center'>
+        <%= link_to 'follow', user_relationships_path(user), method: :post, class: 'btn btn-info mr-3' %>
+    </div>
+
+  <% end %>
+<% end %>
 <div class='row'>
   <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
     <i class="fas fa-user-cog"></i>

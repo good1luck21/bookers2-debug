@@ -1,0 +1,23 @@
+<h1><%= display_user @conversation %>さんとのチャット</h1>
+
+<div class="container">
+  <div class="col pb-20">
+    <% @messages.each do |message| %>
+      <% if message.user_id == current_user.id %>
+        <p class="text-right">
+          <%= message.body %>
+        </p>
+      <% else %>
+        <p class="text-left">
+          <%= message.body %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+  <%= form_with model: @message, url: conversation_messages_path(@conversation) do |f| %>
+    <%= f.text_field :body %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.submit %>
+  <% end %>
+</div>
+

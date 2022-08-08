@@ -11,9 +11,14 @@ Rails.application.routes.draw do
   end
   
   resources :users, only: [:index,:show,:edit,:update] do
-    resources :relationships, only: [:create, :destroy]
+    resource :relationships, only: [:create, :destroy]
     get "followings", to: "relationships#followings", as: "followings"
     get "followers", to: "relationships#followers", as: "followers"
   end
   get "search", to: "searches#search", as: "search"
+
+  resources :conversations, only: [:index] do
+    resource :messages, only: [:show, :create]
+  end
+  post "conversations/:sender_id/:recipient_id/create", to: "conversations#create", as: "conversation"
 end
