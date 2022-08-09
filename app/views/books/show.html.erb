@@ -26,6 +26,7 @@
       </table>
       <div class="row">
         <p>コメント件数:<%= @book.book_comments.count %></p>
+        <p>閲覧数：<%= @book.impressionist_count %></p>
         <table class="table">
           <% @book.book_comments.each do |book_comment| %>
           <tr>
